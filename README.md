@@ -62,12 +62,10 @@ dr
 dr bash
 ```
 ## Running on windows <a name="runwin"></a>
+First make sure Xwindow is running. I'm using [vcxsrv](https://sourceforge.net/projects/vcxsrv/) installed by [Chocolatey](https://chocolatey.org/).
+You can follow the procedure [here](https://dev.to/darksmile92/run-gui-app-in-linux-docker-container-on-windows-host-4kde). 
+
 ```bash
-# First make sure Xwindow is running. I'm using [vcxsrv](https://sourceforge.net/projects/vcxsrv/) installed by [Chocolatey](https://chocolatey.org/).
-
-# You can follow the procedure [here](https://dev.to/darksmile92/run-gui-app-in-linux-docker-container-on-windows-host-4kde). 
-# "Allow connections from network clients" is ON.
-
 # Then set DISPLAY options.
 set-variable -name DISPLAY -value YOUR-IP:0.0
 
