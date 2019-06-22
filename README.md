@@ -63,9 +63,13 @@ dr bash
 ```
 ## Running on windows <a name="runwin"></a>
 First make sure Xwindow is running. I'm using [vcxsrv](https://sourceforge.net/projects/vcxsrv/) installed by [Chocolatey](https://chocolatey.org/).
-You can follow the procedure [here](https://dev.to/darksmile92/run-gui-app-in-linux-docker-container-on-windows-host-4kde). 
+You can follow the procedure [here](https://dev.to/darksmile92/run-gui-app-in-linux-docker-container-on-windows-host-4kde).
+
+If you want to share files to docker follow this [link](https://docs.sevenbridges.com/docs/mount-a-usb-drive-in-a-docker-container); the very last entry titled "MOUNT THE USB DRIVE IN A DOCKER CONTAINER ON A WINDOWS HOST WITH DOCKER FOR WINDOWS".
 
 ```bash
+# Open an admin powershell.
+
 # Then set DISPLAY options.
 set-variable -name DISPLAY -value YOUR-IP:0.0
 
