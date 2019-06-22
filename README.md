@@ -61,6 +61,22 @@ dr
 # Or else start bash, to start programs
 dr bash
 ```
+## Easy run of docker by adding alias to shell profile file
+To make this easier on a **mac**, consider adding this to **HOME/.bash_profile**
+
+```bash
+# Start docker, if it is not running
+alias drdocker='open -a /Applications/Docker.app/Contents/MacOS/Docker'
+# Start  XQuartz, if it is not running
+alias drx='open -a XQuartz; xhost + `ifconfig|grep "inet "|grep -v 127.0.0.1|cut -d" " -f2`'
+
+# Run "Docker Relax": dr
+alias dr='docker run -ti --rm -p 8888:8888 -e DISPLAY=$(ifconfig|grep "inet "|grep -v 127.0.0.1|cut -d" " -f2):0 -v /tmp/.X11-unix:/tmp/.X11-unix -v "$PWD":/home/jovyan/work --name relax tlinnet/relax'
+
+# Run "Docker Relax Execute ": For example: dre bash
+# This is when then Docker Relax image is already running.
+alias dre='docker exec -it relax'
+```
 ## Running on windows <a name="runwin"></a>
 First make sure Xwindow is running. I'm using [vcxsrv](https://sourceforge.net/projects/vcxsrv/) installed by [Chocolatey](https://chocolatey.org/).
 You can follow the procedure [here](https://dev.to/darksmile92/run-gui-app-in-linux-docker-container-on-windows-host-4kde).
@@ -80,22 +96,19 @@ docker run -ti --rm -e DISPLAY=$DISPLAY tlinnet/relax relax -g
 docker run -v [source path]:[destination path] -ti --rm -e DISPLAY=$DISPLAY tlinnet/relax relax -g
 # For example
 docker run -v c:/Users/gageoleighton/Data:/data -ti --rm -e DISPLAY=$DISPLAY tlinnet/relax relax -g
+ ```
+# Windows alias uses the "function" command. 
+## See documentation [here](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions?view=powershell-6).
 ```
-## Easy run of docker by adding alias to shell profile file
-To make this easier on a **mac**, consider adding this to **HOME/.bash_profile**
-
-```bash
-# Start docker, if it is not running
-alias drdocker='open -a /Applications/Docker.app/Contents/MacOS/Docker'
-# Start  XQuartz, if it is not running
-alias drx='open -a XQuartz; xhost + `ifconfig|grep "inet "|grep -v 127.0.0.1|cut -d" " -f2`'
-
-# Run "Docker Relax": dr
-alias dr='docker run -ti --rm -p 8888:8888 -e DISPLAY=$(ifconfig|grep "inet "|grep -v 127.0.0.1|cut -d" " -f2):0 -v /tmp/.X11-unix:/tmp/.X11-unix -v "$PWD":/home/jovyan/work --name relax tlinnet/relax'
-
-# Run "Docker Relax Execute ": For example: dre bash
-# This is when then Docker Relax image is already running.
-alias dre='docker exec -it relax'
+# Need to impliment variable so nmrDraw, sparky, etc. can be run the same as on mac.
+function dr {
+    param([switch]$g) {
+        if ($g) {
+            docker run -v [source dir]:[dest dir] -ti -rm -e DISPLAY=$DISPLAY tlinnet/relax relax -g }
+        else {
+            docker run -v [source dir]:[dest dir] -ti -rm -e DISPLAY=$DISAPLY --name relax tlinnet/relax }
+    }
+}
 ```
 # Installed programs
 ## relax with OpenDX <a name="relax"></a>
