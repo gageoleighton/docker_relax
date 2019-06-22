@@ -61,6 +61,24 @@ dr
 # Or else start bash, to start programs
 dr bash
 ```
+## Running on windows <a name="runwin"></a>
+```bash
+# First make sure Xwindow is running. I'm using [vcxsrv](https://sourceforge.net/projects/vcxsrv/) installed by [Chocolatey](https://chocolatey.org/).
+
+# You can follow the procedure [here](https://dev.to/darksmile92/run-gui-app-in-linux-docker-container-on-windows-host-4kde). 
+# "Allow connections from network clients" is ON.
+
+# Then set DISPLAY options.
+set-variable -name DISPLAY -value YOUR-IP:0.0
+
+# Then run relax.
+docker run -ti --rm -e DISPLAY=$DISPLAY tlinnet/relax relax -g
+
+# Or if you want to link to a folder on your computer
+docker run -v [source path]:[destination path] -ti --rm -e DISPLAY=$DISPLAY tlinnet/relax relax -g
+# For example
+docker run -v c:/Users/gageoleighton/Data:/data -ti --rm -e DISPLAY=$DISPLAY tlinnet/relax relax -g
+```
 ## Easy run of docker by adding alias to shell profile file
 To make this easier on a **mac**, consider adding this to **HOME/.bash_profile**
 
