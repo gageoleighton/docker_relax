@@ -109,6 +109,25 @@ function dr {
             docker run -v [source dir]:[dest dir] -ti -rm -e DISPLAY=$DISAPLY --name relax tlinnet/relax }
     }
 }
+
+# NOTE: A work in progress... does not work with nmrDraw likely a directory issue.
+function dr {
+    Param(
+        [parameter(Mandatory=$true, position=0)]
+        [string]
+        $val1,
+        [parameter(Mandatory=$false, position=1)]
+        [string]
+        $val2,
+        [Parameter(Mandatory=$false)]
+        [switch]
+        $g)
+        
+        if ($g) {
+            docker run -v E:\docker\:/data -ti --rm -e DISPLAY=$DISPLAY tlinnet/relax $val1 $val2 -g }
+        else {
+            docker run -v E:\docker\:/data -ti --rm -e DISPLAY=$DISPLAY tlinnet/relax $val1 $val2 }
+}
 ```
 # Installed programs
 ## relax with OpenDX <a name="relax"></a>
