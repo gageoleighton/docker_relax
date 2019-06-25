@@ -95,38 +95,39 @@ docker run -ti --rm -e DISPLAY=$DISPLAY tlinnet/relax relax -g
 # Or if you want to link to a folder on your computer
 docker run -v [source path]:[destination path] -ti --rm -e DISPLAY=$DISPLAY tlinnet/relax relax -g
 # For example
-docker run -v c:/Users/gageoleighton/Data:/data -ti --rm -e DISPLAY=$DISPLAY tlinnet/relax relax -g
+docker run -v e:\docker\relax:/home/jovyan/work -ti --rm -e DISPLAY=$DISPLAY tlinnet/relax relax -g
  ```
 # Windows alias uses the "function" command. 
 ## See documentation [here](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions?view=powershell-6).
 ```
 # Need to impliment variable so nmrDraw, sparky, etc. can be run the same as on mac.
 function dr {
-    param([switch]$g) {
+    Param([switch]$g)
         if ($g) {
-            docker run -v [source dir]:[dest dir] -ti -rm -e DISPLAY=$DISPLAY tlinnet/relax relax -g }
+            docker run -v e:\docker\relax:/home/jovyan/work -ti --rm -e DISPLAY=$DISPLAY tlinnet/relax relax -g }
         else {
-            docker run -v [source dir]:[dest dir] -ti -rm -e DISPLAY=$DISAPLY --name relax tlinnet/relax }
-    }
+            docker run -v e:\docker\relax:/home/jovyan/work -ti --rm -e DISPLAY=$DISPLAY --name relax tlinnet/relax }
+    
 }
 
-# NOTE: A work in progress... does not work with nmrDraw likely a directory issue.
+# NOTE: A work in progress... directory does not connect to environment properly.
 function dr {
     Param(
-        [parameter(Mandatory=$true, position=0)]
+        [Parameter(Mandatory=$true, position=0)]
         [string]
         $val1,
-        [parameter(Mandatory=$false, position=1)]
+        [Parameter(Mandatory=$false, position=1)]
         [string]
         $val2,
         [Parameter(Mandatory=$false)]
         [switch]
         $g)
-        
+                        
         if ($g) {
-            docker run -v E:\docker\:/data -ti --rm -e DISPLAY=$DISPLAY tlinnet/relax $val1 $val2 -g }
+            docker run -p 8000:8000 -v "`pwd`:/data" -ti --rm -e DISPLAY=$DISPLAY tlinnet/relax $val1 $val2 -g }
         else {
-            docker run -v E:\docker\:/data -ti --rm -e DISPLAY=$DISPLAY tlinnet/relax $val1 $val2 }
+            docker run -p 8000:8000 -v "`pwd`:/data" -ti --rm -e DISPLAY=$DISPLAY tlinnet/relax $val1 $val2 }
+        
 }
 ```
 # Installed programs
