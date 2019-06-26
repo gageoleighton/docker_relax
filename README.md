@@ -124,10 +124,9 @@ function dr {
         $g)
                         
         if ($g) {
-            docker run -p 8000:8000 -v "`pwd`:/data" -ti --rm -e DISPLAY=$DISPLAY tlinnet/relax $val1 $val2 -g }
+            docker run -v "${pwd}:/home/jovyan/work" -ti --rm -e DISPLAY=$DISPLAY tlinnet/relax $val1 $val2 -g }
         else {
-            docker run -p 8000:8000 -v "`pwd`:/data" -ti --rm -e DISPLAY=$DISPLAY tlinnet/relax $val1 $val2 }
-        
+            docker run -v "${pwd}:/home/jovyan/work" -ti --rm -e DISPLAY=$DISPLAY tlinnet/relax $val1 $val2 }    
 }
 ```
 # Installed programs
