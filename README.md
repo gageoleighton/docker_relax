@@ -119,12 +119,20 @@ function dr {
         [Parameter(Mandatory=$false, position=1)]
         [string]
         $val2,
+        [Parameter(Mandatory=$false, position=2)]
+        [string]
+        $val3,
         [Parameter(Mandatory=$false)]
         [switch]
-        $g)
+        $g,
+        [Parameter(Mandatory=$false)]
+        [switch]
+        $l)
                         
         if ($g) {
             docker run -v "${pwd}:/home/jovyan/work" -ti --rm -e DISPLAY=$DISPLAY tlinnet/relax $val1 $val2 -g }
+        if($l) {
+            docker run -v "${pwd}:/home/jovyan/work" -ti --rm -e DISPLAY=$DISPLAY tlinnet/relax $val1 -l $val2 $val3 }
         else {
             docker run -v "${pwd}:/home/jovyan/work" -ti --rm -e DISPLAY=$DISPLAY tlinnet/relax $val1 $val2 }    
 }
